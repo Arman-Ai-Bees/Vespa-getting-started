@@ -1,4 +1,66 @@
-# Basic Text Search Application
+# Vespa
+
+```mermaid
+flowchart TB
+    subgraph Application["Vespa Application (.sd files)"]
+        direction TB
+        
+        subgraph Schema["Schema (music)"]
+            direction TB
+            
+            subgraph Doc["Document Definition"]
+                direction TB
+                
+                Fields["Fields:
+                - artist (string)
+                - artistId (string)
+                - title (string)
+                - album (string)
+                - duration (int)
+                - year (int)
+                - popularity (int)"]
+                
+                subgraph FieldConfig["Field Configurations"]
+                    Index["Indexing Options:
+                    - summary (for query results)
+                    - index (for text search)
+                    - attribute (for memory storage)"]
+                    
+                    Match["Match Options:
+                    - word
+                    - exact
+                    - prefix"]
+                end
+            end
+            
+            subgraph Additional["Additional Components"]
+                direction TB
+                
+                Fieldset["Fieldsets:
+                Default fieldset:
+                - artist
+                - title
+                - album"]
+                
+                RankProfile["Rank Profiles:
+                Song profile:
+                - First phase ranking
+                - Inherits default
+                - Uses nativeRank"]
+            end
+        end
+    end
+    
+    %% Styling
+    classDef box fill:#f9f9f9,stroke:#333,stroke-width:2px
+    classDef highlight fill:#e6f3ff,stroke:#333,stroke-width:2px
+    
+    class Application,Schema,Doc,Additional box
+    class Fields,FieldConfig,Fieldset,RankProfile highlight
+
+```
+
+## Basic Text Search Application
 
 ## Install 
 pip3 install pyvespa>=0.2.0 learntorank
